@@ -14,13 +14,25 @@ public abstract class Game {
 
     @Expose private GameContext context;
 
+    /**
+     * @param context 게임의 정보를 담고있는 객체입니다.
+     * @param logic Game Loop 가 도는동안 반복해서 실행할 로직을 등록합니다.
+     * */
     public Game(GameContext context, IGameLogic logic) {
         this.context = context;
         this.context.setGameLogic(logic);
     }
 
-    public abstract void initialize(); /* 게임 준비 함수 */
-    public abstract void start(); /* 게임 시작 함수 */
+    abstract void initialize(); /* 게임 준비 메소드 */
+
+    /**
+     * 게임 시작 메소드
+     * */
+    public void start(IGameLogic.LogicType type) {
+        initialize();
+
+        context.getScheduler().startScheduler(type);
+    }
 
     public void setGameLobby(GameLobby lobby) { this.context.setLobby(lobby); }
 

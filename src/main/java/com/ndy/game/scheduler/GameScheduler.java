@@ -15,7 +15,20 @@ public class GameScheduler {
         this.delay = delay * 20;
     }
 
-    public void startRepeatingTask() {
+    public void startScheduler(IGameLogic.LogicType type) {
+        switch (type) {
+            case Repeating:
+                startRepeatingTask();
+                break;
+            case Delayed:
+                startDelayedTask();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void startRepeatingTask() {
         taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(MiniGameModulePlugin.getInstance(), () -> {
             try {
                 logic.doExecute();
@@ -26,7 +39,7 @@ public class GameScheduler {
         },0L, delay);
     }
 
-    public void startDelayedTask() {
+    private void startDelayedTask() {
         Bukkit.getScheduler().scheduleSyncDelayedTask(MiniGameModulePlugin.getInstance(), () -> {
             try {
                 logic.doExecute();

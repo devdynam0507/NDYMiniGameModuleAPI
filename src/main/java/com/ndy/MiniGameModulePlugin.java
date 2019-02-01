@@ -6,4 +6,5 @@ public class MiniGameModulePlugin extends JavaPlugin {
 
     public static MiniGameModulePlugin getInstance() { return getPlugin(MiniGameModulePlugin.class); }
 
+
 }
